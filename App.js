@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 import styles from './App.styles'
 
 //Helpers
-import { buscarById, calcularDefinitiva, init } from './helpers';
+import { buscarById, calcularDefinitiva, checkGrade, init } from './helpers';
 
 //Schemas
 import { formValidationSchema } from './schemas';
@@ -24,9 +24,10 @@ export default function App() {
 
   const handleSubmit = () => {
     const notaDefinitiva = calcularDefinitiva(formikProps.values.notaUno, formikProps.values.notaDos, formikProps.values.notaTres).toFixed(2)
-    // formikProps.resetForm()
+    const observacion = checkGrade(parseFloat(notaDefinitiva))
     formikProps.setFieldValue('definitiva', notaDefinitiva)
-    localStorage.setItem('alumnos', JSON.stringify([...alumnos, { ...formikProps.values, definitiva: notaDefinitiva }]))
+    formikProps.setFieldValue('observacion', observacion)
+    localStorage.setItem('alumnos', JSON.stringify([...alumnos, { ...formikProps.values, definitiva: notaDefinitiva, observacion: observacion }]))
   }
 
   const search = (identificacion) => {

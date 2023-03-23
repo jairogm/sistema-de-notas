@@ -11,3 +11,11 @@ export const buscarById = (identificacion) => {
 
     return singleAlumno
 }
+
+export const checkGrade = (definitiva) => {
+    let observacion;
+    definitiva >= 3 ? observacion = 'Aprobado' :
+    definitiva >= 2 && definitiva <= 2.94 ? observacion = 'Habilita' :
+    definitiva = 'Reprobado'
+    return observacion
+}
